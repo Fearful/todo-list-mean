@@ -1,0 +1,39 @@
+<!-- My posts  -->
+
+<h1 class="tituloList">Lista de Tareas</h1>
+<div class="separador">
+    <span class="numRestante">{{restantes()}} tarea/s restantes de {{tareas.length}}</span>
+    <span class="alertaLbl-{{msgVisible}} success-{{styleAgregado}}" >{{msgAlerta}}</span>
+        <button ng-click="delSelectedTasksC()" class="btn btn-default btn-danger btDelete">DELETE
+    <span class="btEliminar">{{cuentaEliminar}}</span></button>
+</div>
+<ul class="unstyled">
+    <li ng-repeat="tarea in tareas" class="listStyle">
+        <div class="row">
+            <div class="col-lg-6 ancho-total">
+                <div class="input-group">
+                      <span class="input-group-addon">
+                        <input type="checkbox" ng-change="seleccion(tarea)" ng-model="tarea.hecho">
+                      </span>
+                    <span type="text" class="form-control hecho-{{tarea.hecho}}">{{tarea.texto}}</span>
+                </div>
+                <!-- /input-group -->
+            </div>
+            <!-- /.col-lg-6 -->
+        </div>
+    </li>
+</ul>
+<form ng-submit="addTask()">
+    <div class="col-lg-6 ancho-total">
+        <div class="input-group input-group-lg">
+            <input type="text" class="form-control vacio-{{vacio}}" placeholder="Agregar item"
+                   ng-model="textoNuevaTarea" ng-change="verificaTexto()">
+                    <span class="input-group-btn">
+                        <button class="btn btn-default btn-primary" type="submit">Add</button>
+                    </span>
+        </div>
+        <!-- /input-group -->
+    </div>
+    <!-- /.col-lg-6 -->
+</form>
+<script src=""></script>

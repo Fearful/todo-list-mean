@@ -1,0 +1,25 @@
+<!-- My posts  -->
+
+<h1 class="tituloList">Lista de Tareas</h1>
+<div class="separador">
+    <span class="numRestante">{{restantes()}} tarea/s restantes de {{tareas.length}}</span>
+</div>
+    <ul class="unstyled">
+        <li ng-repeat="tarea in tareas" class="listStyle">
+            <div class="row">
+                <div class="col-lg-6 ancho-total">
+                    <div class="input-group">
+                          <span class="input-group-btn">
+                            <button class="btn btn-default btn-danger" ng-click="eliminarTask(tarea)">X</button>
+                          </span>
+                        <input type="text" class="form-control hecho-{{tarea.hecho}}" value="{{tarea.texto}}" ng-disabled="state">
+                        <span class="input-group-btn">
+                            <button class="btn btn-default btn-primary" ng-click="editarTask(tarea)">{{textBtEdit
+                                }}</button>
+                        </span>
+                    </div><!-- /input-group -->
+                </div><!-- /.col-lg-6 -->
+            </div>
+        </li>
+    </ul>
+<script src=""></script>
