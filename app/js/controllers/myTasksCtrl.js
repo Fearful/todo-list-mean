@@ -39,10 +39,10 @@ app.controller('myTasksCtrl', function($scope, todoService, $location) {
     // Call to blogService.create()
     $scope.addTask = function() {
         var task = {
-            id : '',
             texto : $scope.textoNuevaTarea,
             hecho : false
         };
+
         //debugger;
         if($scope.textoNuevaTarea == "" || $scope.textoNuevaTarea == undefined) {
             $scope.vacio = true;

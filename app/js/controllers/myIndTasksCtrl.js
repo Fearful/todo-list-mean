@@ -4,7 +4,9 @@ app.controller('myIndTasksCtrl', function($scope, todoService, $location) {
     //get all elements
 
     $scope.textBtEdit = "Edit";
-    $scope.state = false;
+    $scope.state = true;
+    var btEdit = true;
+
 
     $scope.getAll = function() {
         todoService.getAll()
@@ -30,17 +32,28 @@ app.controller('myIndTasksCtrl', function($scope, todoService, $location) {
     }
 
     $scope.editarTask= function(task){
-        debugger;
-        $scope.state = true;
+        if(btEdit == true){
+            $scope.state = false;
+            $scope.textBtEdit = "Save";
+            btEdit = false;
+        }
+        else{
+            confirmEditTask(task);
+        }
     }
 
 
     var confirmEditTask = function(task){
         $scope.current;
         debugger;
+        task.texto = $scope.textoNuevo;
+        debugger;
         todoService.editarTarea(task)
             .success(function () {
                 $scope.getAll();
+                $scope.textBtEdit = "Edit";
+                $scope.state = true;
+                btEdit = true;
             })
             .error(function(current) {
                 alert(current);
