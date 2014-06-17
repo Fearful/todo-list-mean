@@ -77,9 +77,17 @@ app.controller('myTasksCtrl', function($scope, todoService, $location) {
             return;
         }
         todoService.delSelectedTasks()
-            .success(function(){
+            .success(function(data){
+                angular.forEach($scope.tareas, function(aEliminar){
+                    angular.forEach(data, function(id){
+                        if (aEliminar._id == id.id){
+                            var index = $scope.tareas.indexOf(aEliminar);
+                            $scope.tareas.splice(index, 1);
+                        }
+                    });
+                });
+
                 msgAlert("Tarea eliminada", true, true);
-                $scope.getAll();
             })
             .error(function(current){
                 alert(current)

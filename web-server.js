@@ -82,11 +82,21 @@ db.once('open', function() {
     });
 
     // delete todas las tareas terminadas.
-    app.delete('/delete', function(req, res) {
-        colTasks.remove({hecho: true}, function(err){
+    app.get('/delete', function(req, res) {
+
+        var borrados = new Array();
+
+        colTasks.find({ hecho: true}, function (err, misBorrados) {
             if (err) return handleError(err);
-            // removed!
-            res.json(true);
+            colTasks.remove({hecho: true}, function(err){
+                if (err) return handleError(err);
+                // removed!
+            });
+
+            _.each(misBorrados, function(task){
+                borrados.push({id: task._doc._id});
+            });
+            res.send (borrados);
         });
     });
 

@@ -20,7 +20,7 @@ app.service('todoService', function ($http, $location) {
     };
 
     this.delSelectedTasks = function () {
-        return $http.delete('/delete');
+        return $http.get('/delete');
     };
 
     this.borrarTarea = function(myTaskID){
