@@ -2,10 +2,10 @@
 
 app.controller('myTasksCtrl', function($scope, todoService, $location) {
 
-    var msgAlert = function(msg, visibilidad, estado){
+    var msgAlert = function(msg, visibilidad, state){
         $scope.msgAlerta = msg;
         $scope.msgVisible = visibilidad;
-        $scope.styleAgregado = estado;
+        $scope.styleAdded = state;
     }
 
 
@@ -13,56 +13,55 @@ app.controller('myTasksCtrl', function($scope, todoService, $location) {
     $scope.getAll = function() {
         todoService.getAll()
             .success(function (data, status, headers, config) {
-                $scope.tareas = data;
-                numEliminar();
+                $scope.tasks = data;
+                numDone();
             })
             .error(function(data, status, headers, config) {
                 alert(current);
             });
     }
 
-    $scope.restantes = function () {
-        var cuenta = 0;
-        angular.forEach($scope.tareas, function (tarea) {
-            cuenta += tarea.hecho ? 0 : 1;
+    $scope.remaining = function () {
+        var count = 0;
+        angular.forEach($scope.tasks, function (task) {
+            count += task.done ? 0 : 1;
         });
-        return cuenta;
+        return count;
     };
 
-    var numEliminar = function () {
-        $scope.cuentaEliminar = 0;
-        angular.forEach($scope.tareas, function (tarea) {
-            $scope.cuentaEliminar += tarea.hecho ? 1 : 0;
+    var numDone = function () {
+        $scope.countDelete = 0;
+        angular.forEach($scope.tasks, function (t) {
+            $scope.countDelete += t.done ? 1 : 0;
         });
     };
 
     // Call to blogService.create()
     $scope.addTask = function() {
-        var task = {
-            texto : $scope.textoNuevaTarea,
-            hecho : false
-        };
-
         //debugger;
-        if($scope.textoNuevaTarea == "" || $scope.textoNuevaTarea == undefined) {
-            $scope.vacio = true;
-            msgAlert("Debe ingresar la tarea", true, false)
+        if($scope.textNewTask == "" || $scope.textNewTask == undefined) {
+            $scope.empty = true;
+            msgAlert("You must enter a task", true, false);
             return;
         }
+        var task = {
+            text : $scope.textNewTask,
+            done : false
+        };
         todoService.create(task)
             .success(function (current, status, headers, config) {
                 $scope.getAll();
-                $scope.textoNuevaTarea = "";
-                msgAlert("Tarea agreagada", true, true) ;
+                $scope.textNewTask = "";
+                msgAlert("Task added", true, true) ;
             })
             .error(function (current, status, headers, config) {
                 alert(current);
             });
     };
 
-    $scope.seleccion = function(task){
+    $scope.selection = function(task){
         msgAlert("", false, false);
-        todoService.seleccion(task._id)
+        todoService.selection(task._id)
         .success(function () {
                 $scope.getAll();
             })
@@ -72,32 +71,32 @@ app.controller('myTasksCtrl', function($scope, todoService, $location) {
     }
 
     $scope.delSelectedTasksC = function(){
-        if($scope.cuentaEliminar == 0){
-            msgAlert("Debe seleccionar la tarea a elminar", true, false);
+        if($scope.countDelete == 0){
+            msgAlert("You must select the task to delete", true, false);
             return;
         }
         todoService.delSelectedTasks()
             .success(function(data){
-                angular.forEach($scope.tareas, function(aEliminar){
+                angular.forEach($scope.tareas, function(del){
                     angular.forEach(data, function(id){
-                        if (aEliminar._id == id.id){
-                            var index = $scope.tareas.indexOf(aEliminar);
-                            $scope.tareas.splice(index, 1);
+                        if (del._id == id.id){
+                            var index = $scope.tasks.indexOf(del);
+                            $scope.tasks.splice(index, 1);
                         }
                     });
                 });
 
-                msgAlert("Tarea eliminada", true, true);
+                msgAlert("Deleted task", true, true);
             })
             .error(function(current){
                 alert(current)
             });
     }
 
-    $scope.verificaTexto = function(){
-        if($scope.textoNuevaTarea != "" || $scope.textoNuevaTarea != undefined) {
+    $scope.verifyText = function(){
+        if($scope.textNewTask != "" || $scope.textNewTask != undefined) {
             msgAlert("", false, false);
-            $scope.vacio = false;
+            $scope.empty = false;
         }
     }
 

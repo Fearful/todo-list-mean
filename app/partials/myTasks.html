@@ -1,21 +1,21 @@
 <!-- My posts  -->
 
-<h1 class="tituloList">Lista de Tareas</h1>
-<div class="separador">
-    <span class="numRestante">{{restantes()}} tarea/s restantes de {{tareas.length}}</span>
-    <span class="alertaLbl-{{msgVisible}} success-{{styleAgregado}}" >{{msgAlerta}}</span>
-        <button ng-click="delSelectedTasksC()" class="btn btn-default btn-danger btDelete">DELETE
-    <span class="btEliminar">{{cuentaEliminar}}</span></button>
+<h1 class="listTitle">Lista de Tareas</h1>
+<div class="sep">
+    <span class="numRemaining">{{remaining()}} task/s remaining of {{cont}}</span>
+    <span class="alertLbl-{{msgVisible}} success-{{styleAdded}}">{{msgAlert}}</span>
+    <button ng-click="delSelectedTasksC()" class="btn btn-default btn-danger btDelete">DELETE
+        <span class="btDel">{{countDelete}}</span></button>
 </div>
 <ul class="unstyled">
-    <li ng-repeat="tarea in tareas" class="listStyle">
+    <li ng-repeat="task in tasks" class="listStyle">
         <div class="row">
-            <div class="col-lg-6 ancho-total">
+            <div class="col-lg-6 total-width">
                 <div class="input-group">
                       <span class="input-group-addon">
-                        <input type="checkbox" ng-change="seleccion(tarea)" ng-model="tarea.hecho">
+                        <input type="checkbox" ng-change="selection(task)" ng-model="task.done">
                       </span>
-                    <span type="text" class="form-control hecho-{{tarea.hecho}}">{{tarea.texto}}</span>
+                    <span type="text" class="form-control done-{{task.done}}">{{task.text}}</span>
                 </div>
                 <!-- /input-group -->
             </div>
@@ -24,10 +24,10 @@
     </li>
 </ul>
 <form ng-submit="addTask()">
-    <div class="col-lg-6 ancho-total">
+    <div class="col-lg-6 total-width">
         <div class="input-group input-group-lg">
-            <input type="text" class="form-control vacio-{{vacio}}" placeholder="Agregar item"
-                   ng-model="textoNuevaTarea" ng-change="verificaTexto()">
+            <input type="text" class="form-control empty-{{empty}}" placeholder="Add an item"
+                   ng-model="textNewTask" ng-change="verifyText()">
                     <span class="input-group-btn">
                         <button class="btn btn-default btn-primary" type="submit">Add</button>
                     </span>

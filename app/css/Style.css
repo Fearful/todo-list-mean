@@ -8,12 +8,12 @@
     margin: 15px;
 }
 
-.hecho-true{
+.done-true{
     background: rgb(235, 235, 235);
     text-decoration: line-through;
 }
 
-.vacio-true{
+.empty-true{
     background: rgba(255, 0, 0, 0.19);
 }
 
@@ -31,7 +31,7 @@
     background: rgb(247, 247, 247);
 }
 
-.numRestante {
+.numRemaining {
     padding: 3px 8px 3px 8px;
     margin-left: 17px;
     border-radius: 4px;
@@ -39,7 +39,7 @@
     color: rgb(146, 146, 146);
 }
 
-.btEliminar {
+.btDel {
     background: rgb(255, 255, 255);
     padding: 3px 9px 3px 8px;
     border-radius: 8px;
@@ -48,16 +48,13 @@
     margin-left: 5px;
 }
 
-.tituloList {
+.listTitle {
     text-shadow: 2px 2px 3px rgb(165, 165, 165);
     text-decoration: blink;
     margin: 0;
     border-bottom: 1px solid rgb(136, 136, 136);
     padding-bottom: 4px;
     margin-bottom: 4px;
-}
-.tituloList.nombre {
-    text-align: center;
 }
 
 .btDelete {
@@ -66,7 +63,7 @@
     margin-top: -6px;
 }
 
-.separador {
+.sep {
     padding-top: 10px;
 }
 
@@ -78,7 +75,7 @@
     width: 100%;
 }
 
-.ancho-total{
+.total-width {
     width: 100%;
     float: none;
     clear: both;
