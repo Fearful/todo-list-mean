@@ -11,7 +11,8 @@ app.controller('myIndTasksCtrl', function($scope, todoService, $location) {
     $scope.getAll = function() {
         todoService.getAll()
             .success(function (data, status, headers, config) {
-                $scope.tareas = data;
+                $scope.tasks = data;
+                $scope.count = data.length;
             })
             .error(function(data, status, headers, config) {
                 alert(current);
@@ -22,7 +23,7 @@ app.controller('myIndTasksCtrl', function($scope, todoService, $location) {
     $scope.delTask = function(task){
         $scope.current;
         debugger;
-        todoService.delTask(task._id)
+        todoService.deleteTask(task._id)
             .success(function () {
                 $scope.getAll();
             })

@@ -33,33 +33,12 @@ db.on('error', console.error);
 db.once('open', function() {
         // Schema
         var TaskSchema = new mongoose.Schema({
-            texto: { type: String },
-            hecho: { type: Boolean }
+            text: { type: String },
+            done: { type: Boolean }
         });
 
         // Mongoose also creates a MongoDB collection called 'Posts' for these documents.
         var colTasks = mongoose.model('colTasks', TaskSchema);
-
-//    // examples ____________________________________________________________________________________________
-//
-//    var post_example1 = new colTasks({
-//        id: 1,
-//        texto: 'Recruiting Advice No One Tells You',
-//        hecho:  false
-//    });
-//
-//    var post_example2 = new colTasks({
-//        id: 2,
-//        texto: 'Recruiting Nico',
-//        hecho:  true
-//    });
-//
-////    var contID = 2;
-//
-//    post_example1.save();
-//    post_example2.save();
-
-    // _____________________________________________________________________________________________________
 
     // get all Tasks
     app.get('/api/myTasks', function(req, res){
@@ -74,8 +53,8 @@ db.once('open', function() {
 
     app.put('/newTask', function(req, res) {
         var newTask = new colTasks({
-            texto : req.body.texto,
-            hecho : req.body.hecho
+            text : req.body.text,
+            done : req.body.done
         });
         newTask.save();
         res.json(true);
@@ -86,9 +65,9 @@ db.once('open', function() {
 
         var borrados = new Array();
 
-        colTasks.find({ hecho: true}, function (err, misBorrados) {
+        colTasks.find({ done: true}, function (err, misBorrados) {
             if (err) return handleError(err);
-            colTasks.remove({hecho: true}, function(err){
+            colTasks.remove({done: true}, function(err){
                 if (err) return handleError(err);
                 // removed!
             });
@@ -103,7 +82,7 @@ db.once('open', function() {
     // Select a particular task
     app.post('/selectedTask/:id', function(req, res) {
         colTasks.findOne({ _id: req.params.id }, function (err, task){
-            task.hecho = !task.hecho;
+            task.done = !task.done;
             task.save();
         });
         res.json(true);

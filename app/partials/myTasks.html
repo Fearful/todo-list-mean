@@ -2,9 +2,9 @@
 
 <h1 class="listTitle">Lista de Tareas</h1>
 <div class="sep">
-    <span class="numRemaining">{{remaining()}} task/s remaining of {{cont}}</span>
+    <span class="numRemaining">{{remaining()}} task/s remaining of {{count}}</span>
     <span class="alertLbl-{{msgVisible}} success-{{styleAdded}}">{{msgAlert}}</span>
-    <button ng-click="delSelectedTasksC()" class="btn btn-default btn-danger btDelete">DELETE
+    <button ng-click="delSelectedTasks()" class="btn btn-default btn-danger btDelete">DELETE
         <span class="btDel">{{countDelete}}</span></button>
 </div>
 <ul class="unstyled">

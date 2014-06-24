@@ -3,7 +3,7 @@
 app.controller('myTasksCtrl', function($scope, todoService, $location) {
 
     var msgAlert = function(msg, visibilidad, state){
-        $scope.msgAlerta = msg;
+        $scope.msgAlert = msg;
         $scope.msgVisible = visibilidad;
         $scope.styleAdded = state;
     }
@@ -14,9 +14,10 @@ app.controller('myTasksCtrl', function($scope, todoService, $location) {
         todoService.getAll()
             .success(function (data, status, headers, config) {
                 $scope.tasks = data;
+                $scope.count = data.length;
                 numDone();
             })
-            .error(function(data, status, headers, config) {
+            .error(function(current) {
                 alert(current);
             });
     }
@@ -31,8 +32,8 @@ app.controller('myTasksCtrl', function($scope, todoService, $location) {
 
     var numDone = function () {
         $scope.countDelete = 0;
-        angular.forEach($scope.tasks, function (t) {
-            $scope.countDelete += t.done ? 1 : 0;
+        angular.forEach($scope.tasks, function (task) {
+            $scope.countDelete += task.done ? 1 : 0;
         });
     };
 
@@ -70,22 +71,23 @@ app.controller('myTasksCtrl', function($scope, todoService, $location) {
                 });
     }
 
-    $scope.delSelectedTasksC = function(){
+    $scope.delSelectedTasks = function(){
         if($scope.countDelete == 0){
             msgAlert("You must select the task to delete", true, false);
             return;
         }
         todoService.delSelectedTasks()
             .success(function(data){
-                angular.forEach($scope.tareas, function(del){
-                    angular.forEach(data, function(id){
+
+                angular.forEach(data, function(id){
+                    angular.forEach($scope.tasks, function(del) {
                         if (del._id == id.id){
                             var index = $scope.tasks.indexOf(del);
                             $scope.tasks.splice(index, 1);
                         }
                     });
                 });
-
+                $scope.count = $scope.tasks.length;
                 msgAlert("Deleted task", true, true);
             })
             .error(function(current){

@@ -57,6 +57,10 @@
     margin-bottom: 4px;
 }
 
+.listTitle.name{
+    text-align: center;
+}
+
 .btDelete {
     float: right;
     margin-right: 17px;
@@ -81,7 +85,7 @@
     clear: both;
 }
 
-.alertaLbl-true{
+.alertLbl-true{
     display: initial;
     padding: 4px;
     border-radius: 4px;
@@ -90,7 +94,7 @@
     color: rgb(92, 92, 92);
 }
 
-.alertaLbl-false {
+.alertLbl-false {
     display: none;
 }
 

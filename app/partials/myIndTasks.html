@@ -2,7 +2,7 @@
 
 <h1 class="listTitle">Lista de Tareas</h1>
 <div class="sep">
-    <span class="numRemaining">{{remaining()}} task/s remaining of {{cont}}</span>
+    <span class="numRemaining">{{remaining()}} task/s remaining of {{count}}</span>
 </div>
     <ul class="unstyled">
         <li ng-repeat="task in tasks" class="listStyle">
@@ -10,10 +10,10 @@
                 <div class="col-lg-6 total-width">
                     <div class="input-group">
                           <span class="input-group-btn">
-                            <button class="btn btn-default btn-danger" ng-click="eliminarTask(tarea)">X</button>
+                            <button class="btn btn-default btn-danger" ng-click="delTask(task)">X</button>
                           </span>
-                        <input type="text" class="form-control hecho-{{tarea.hecho}}"
-                               value="{{tarea.texto}}" ng-disabled="state">
+                        <input type="text" class="form-control done-{{task.true}}"
+                               value="{{task.text}}" ng-disabled="state">
                         <!--<span class="input-group-btn">-->
                             <!--<button class="btn btn-default btn-primary" ng-click="editarTask(tarea)">{{textBtEdit}}</button>-->
                         <!--</span>-->
