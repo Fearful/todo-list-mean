@@ -61,7 +61,7 @@ db.once('open', function() {
     });
 
     // delete todas las tareas terminadas.
-    app.get('/delete', function(req, res) {
+    app.delete('/delete', function(req, res) {
 
         var borrados = new Array();
 
