@@ -51,7 +51,7 @@ db.once('open', function() {
     // create a new Task.   Preguntar id, texto hecho.   que hace res.json?
     //NO SE PUEDE PASAR LA TAREA ENTERA Y AGREGARLA EN LUGAR DE DESARMAR EL OBJETO?
 
-    app.put('/newTask', function(req, res) {
+    app.post('/newTask', function(req, res) {
         var newTask = new colTasks({
             text : req.body.text,
             done : req.body.done
@@ -80,7 +80,7 @@ db.once('open', function() {
     });
 
     // Select a particular task
-    app.post('/selectedTask/:id', function(req, res) {
+    app.put('/selectedTask/:id', function(req, res) {
         colTasks.findOne({ _id: req.params.id }, function (err, task){
             task.done = !task.done;
             task.save();
@@ -88,7 +88,7 @@ db.once('open', function() {
         res.json(true);
     });
 
-    app.post('/updateTask', function(req, res){
+    app.put('/updateTask', function(req, res){
         colTasks.findOne({_id : req.body._id}, function(err, task){
            task.texto = req.body.texto;
             task.save();

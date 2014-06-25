@@ -12,11 +12,11 @@ app.service('todoService', function ($http, $location) {
 
     //add a new element to array
     this.create = function (newTask) {
-        return $http.put('/newTask', newTask);
+        return $http.post('/newTask', newTask);
     };
 
     this.selection = function(selectedTaskID){
-        return $http.post('/selectedTask/' + selectedTaskID);
+        return $http.put('/selectedTask/' + selectedTaskID);
     };
 
     this.delSelectedTasks = function () {
@@ -28,6 +28,6 @@ app.service('todoService', function ($http, $location) {
     };
 
     this.editTask = function(myTask){
-        return $http.post('/updateTask', myTask);
+        return $http.put('/updateTask', myTask);
     }
 }); 
