@@ -60,8 +60,7 @@ db.once('open', function() {
     });
 
     // delete all removed tasks.
-    app.delete('/delete', function(req, res) {
-        console.log("pepepepe");
+    app.delete('/delete', function(req, res) {        
         var deletedTasks = new Array();
         colTasks.find({ done: true}, function (err, myDeletedTasks) {
             if (err) return handleError(err);
