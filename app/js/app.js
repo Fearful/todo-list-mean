@@ -21,8 +21,7 @@ app.config(['$routeProvider', function($routeProvider) {
             templateUrl: 'partials/myIndTasks.html'
         })
         .when('/about',
-        {
-            controller: 'myAboutCtrl',
+        {            
             templateUrl: 'partials/myAbout.html'
         })
         .otherwise({redirectTo: '/'});

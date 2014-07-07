@@ -1,8 +1,10 @@
 var express = require("express"),
     app     = express()
-
 var _ = require("underscore");
 var mongoose = require('mongoose');
+//==================================================================
+
+//===========================CONFIGURATION==========================
 
 app.configure(function(){
     app.set('port', process.env.PORT || 3000);
@@ -22,10 +24,9 @@ app.listen(app.get('port'), function () {
 app.get("/", function(req, res) {
     res.redirect("/index.html");
 });
+//==================================================================
 
-
-// mongo db ____________________________________________________________________________________________
-
+//===========================MONGO DB===============================
 var db = mongoose.connection;
 
 db.on('error', console.error);
@@ -37,10 +38,10 @@ db.once('open', function() {
             done: { type: Boolean }
         });
 
-        // Mongoose also creates a MongoDB collection called 'Posts' for these documents.
+        // Mongoose also creates a MongoDB collection called 'colTasks' for these documents.
         var colTasks = mongoose.model('colTasks', TaskSchema);
 
-    // get all Tasks
+    // get all tasks
     app.get('/api/myTasks', function(req, res){
         colTasks.find(function(err, myTasks) {
             if (err) return console.error(err);
@@ -48,9 +49,7 @@ db.once('open', function() {
         });
     });
 
-    // create a new Task.   Preguntar id, texto hecho.   que hace res.json?
-    //NO SE PUEDE PASAR LA TAREA ENTERA Y AGREGARLA EN LUGAR DE DESARMAR EL OBJETO?
-
+    // create a new task
     app.post('/newTask', function(req, res) {
         var newTask = new colTasks({
             text : req.body.text,
@@ -60,22 +59,20 @@ db.once('open', function() {
         res.json(true);
     });
 
-    // delete todas las tareas terminadas.
+    // delete all removed tasks.
     app.delete('/delete', function(req, res) {
-
-        var borrados = new Array();
-
-        colTasks.find({ done: true}, function (err, misBorrados) {
+        console.log("pepepepe");
+        var deletedTasks = new Array();
+        colTasks.find({ done: true}, function (err, myDeletedTasks) {
             if (err) return handleError(err);
             colTasks.remove({done: true}, function(err){
                 if (err) return handleError(err);
                 // removed!
             });
-
-            _.each(misBorrados, function(task){
-                borrados.push({id: task._doc._id});
+            _.each(myDeletedTasks, function(task){
+                deletedTasks.push({id: task._doc._id});
             });
-            res.send (borrados);
+            res.send (deletedTasks);
         });
     });
 
@@ -88,9 +85,10 @@ db.once('open', function() {
         res.json(true);
     });
 
+    // Update a particular task
     app.put('/updateTask', function(req, res){
         colTasks.findOne({_id : req.body._id}, function(err, task){
-           task.texto = req.body.texto;
+            task.text = req.body.text;
             task.save();
         });
         res.json(true);
@@ -106,3 +104,4 @@ db.once('open', function() {
 });
 
 mongoose.connect('mongodb://localhost/todo');
+//==================================================================

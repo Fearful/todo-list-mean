@@ -7,7 +7,6 @@ app.controller('myIndTasksCtrl', function($scope, todoService, $location) {
     $scope.state = true;
     var btEdit = true;
 
-
     $scope.getAll = function() {
         todoService.getAll()
             .success(function (data, status, headers, config) {
@@ -19,10 +18,8 @@ app.controller('myIndTasksCtrl', function($scope, todoService, $location) {
             });
     }
 
-
     $scope.delTask = function(task){
         $scope.current;
-        debugger;
         todoService.deleteTask(task._id)
             .success(function () {
                 $scope.getAll();
@@ -43,12 +40,9 @@ app.controller('myIndTasksCtrl', function($scope, todoService, $location) {
         }
     }
 
-
     var confirmEditTask = function(task){
         $scope.current;
-        debugger;
-        task.texto = $scope.newText;
-        debugger;
+        task.text = $scope.newText;        
         todoService.editTask(task)
             .success(function () {
                 $scope.getAll();

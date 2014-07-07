@@ -2,12 +2,11 @@
 
 app.controller('myTasksCtrl', function($scope, todoService, $location) {
 
-    var msgAlert = function(msg, visibilidad, state){
+    var msgAlert = function(msg, isVisible, state){
         $scope.msgAlert = msg;
-        $scope.msgVisible = visibilidad;
+        $scope.msgVisible = isVisible;
         $scope.styleAdded = state;
     }
-
 
     //get all elements
     $scope.getAll = function() {
@@ -36,10 +35,8 @@ app.controller('myTasksCtrl', function($scope, todoService, $location) {
             $scope.countDelete += task.done ? 1 : 0;
         });
     };
-
-    // Call to blogService.create()
-    $scope.addTask = function() {
-        //debugger;
+    
+    $scope.addTask = function() {        
         if($scope.textNewTask == "" || $scope.textNewTask == undefined) {
             $scope.empty = true;
             msgAlert("You must enter a task", true, false);
@@ -65,20 +62,19 @@ app.controller('myTasksCtrl', function($scope, todoService, $location) {
         todoService.selection(task._id)
         .success(function () {
                 $scope.getAll();
-            })
-                .error(function(current, status, headers, config) {
-                    alert(current);
-                });
+        })
+        .error(function(current, status, headers, config) {
+            alert(current);
+        });
     }
 
-    $scope.delSelectedTasks = function(){
+    $scope.delSelectedTasks = function(){           
         if($scope.countDelete == 0){
             msgAlert("You must select the task to delete", true, false);
             return;
         }
         todoService.delSelectedTasks()
             .success(function(data){
-
                 angular.forEach(data, function(id){
                     angular.forEach($scope.tasks, function(del) {
                         if (del._id == id.id){
@@ -88,6 +84,7 @@ app.controller('myTasksCtrl', function($scope, todoService, $location) {
                     });
                 });
                 $scope.count = $scope.tasks.length;
+                $scope.countDelete = 0;
                 msgAlert("Deleted task", true, true);
             })
             .error(function(current){
